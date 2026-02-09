@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRCE NSS CAMP 2026 | Adventure Awaits!</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Fredoka:wght@600&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Intro Loader -->
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <img src="nss.jpg" alt="NSS Logo" class="loader-logo">
+            <p class="loader-text">Loading Adventure...</p>
+        </div>
+    </div>
+
+    <!-- Modern Layered Background -->
+    <div class="parallax-container">
+        <!-- Sky & Sun -->
+        <div class="layer sky-layer"></div>
+        <div class="layer sun-layer"></div>
+
+        <!-- Clouds (Subtle, floaty) -->
+        <div class="layer cloud-layer-back"></div>
+
+        <!-- Mountains (Silhouettes / Abstract) -->
+        <div class="layer mountain-layer"></div>
+
+        <!-- Rolling Hills (Gradients) -->
+        <div class="layer hill-layer-1"></div>
+        <div class="layer hill-layer-2"></div>
+
+        <!-- Foreground Trees (Minimal) -->
+        <div class="layer tree-layer"></div>
+
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+            <span class="floating-leaf leaf-1">🍃</span>
+            <span class="floating-leaf leaf-2">🍂</span>
+            <span class="floating-leaf leaf-3">🍁</span>
+            <span class="floating-leaf leaf-4">🌿</span>
+            <span class="floating-leaf leaf-5">🍃</span>
+        </div>
+    </div>
+
+    <!-- Navigation (Floating Glass) -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo-brand">
+                <img src="nss.jpg" alt="NSS Logo" class="logo-img">
+                <span class="logo-text">NSS <span>CRCE</span></span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="container hero-content">
+                <div class="hero-badge fade-in-up">National Service Scheme</div>
+
+                <h1 class="main-title fade-in-up delay-1">
+                    <span class="title-nss">NSS</span>
+                    <span class="title-camp">CAMP</span>
+                    <span class="year-accent">2026</span>
+                </h1>
+
+                <!-- Countdown Timer -->
+                <div class="countdown-container fade-in-up delay-3">
+                    <div class="nail nail-tl"></div>
+                    <div class="nail nail-tr"></div>
+                    <div class="nail nail-bl"></div>
+                    <div class="nail nail-br"></div>
+                    <div class="time-box">
+                        <span id="days">00</span>
+                        <span class="label">Days</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="time-box">
+                        <span id="hours">00</span>
+                        <span class="label">Hours</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="time-box">
+                        <span id="minutes">00</span>
+                        <span class="label">Mins</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="time-box">
+                        <span id="seconds">00</span>
+                        <span class="label">Secs</span>
+                    </div>
+                </div>
+
+                <div class="scroll-mouse fade-in-up delay-4">
+                    <div class="mouse-wheel"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- About Section (Adventure Theme) -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="about-card fade-on-scroll">
+                    <div class="about-header">
+                        <div class="about-icon-wrap">
+                            <span class="about-icon">🏕️</span>
+                        </div>
+                        <h2>About the Camp</h2>
+                    </div>
+                    
+                    <p class="about-text">
+                        The <strong>CRCE NSS Camp</strong> is more than just a trip-it's a journey of self-discovery.
+                        Experience rural life, engage in meaningful community service, and build bonds that last a
+                        lifetime.
+                    </p>
+
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <span class="highlight-icon">🌿</span>
+                            <span class="highlight-text">Nature</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-icon">🤝</span>
+                            <span class="highlight-text">Service</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-icon">🔥</span>
+                            <span class="highlight-text">Bonding</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Removed redundant info section -->
+
+        <!-- Essentials Section (Accordion FAQ) -->
+        <section id="essentials" class="section">
+            <div class="container">
+                <div class="section-header fade-on-scroll">
+                    <h2>Camp Essentials</h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-item fade-on-scroll delay-1">
+                        <button class="accordion-header">
+                            <span>🎒 Packing List</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Comfortable clothes (4-5 sets), sturdy shoes, toiletries, water bottle, sunscreen, hat/cap, personal medications, notebook & pen, sleeping bag or bedsheet, flashlight, and a positive attitude!</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item fade-on-scroll delay-6">
+                        <button class="accordion-header">
+                            <span>💰 Camp Fees</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p><strong>₹3,000</strong> per student (includes transport, food, accommodation & activities). Payment to be made after registration confirmation. UPI/Cash accepted. No refunds after March 10, 2026.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item fade-on-scroll delay-2">
+                        <button class="accordion-header">
+                            <span>⏰ Reporting Time</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Report at the college campus by 6:00 AM sharp on March 15, 2026. The bus will depart at 6:30 AM. Late-comers will not be accommodated.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item fade-on-scroll delay-3">
+                        <button class="accordion-header">
+                            <span>📍 Camp Location</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+mp will be held in a rural village approximately 80 km from Mumbai.<br><strong>📍 Naik Foundation, Tandulwadi Saphale</strong></p>                            <p>The ca
+                        </div>  
+                    </div>
+
+                    <div class="accordion-item fade-on-scroll delay-4">
+                        <button class="accordion-header">
+                            <span>🍽️ Food & Accommodation</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Vegetarian meals will be provided. Accommodation will be in a community hall or school with basic facilities. Bring your own bedding for comfort.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item fade-on-scroll delay-5">
+                        <button class="accordion-header">
+                            <span>📋 Rules & Guidelines</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>No alcohol or smoking. Respect local customs and villagers. Participate actively in all activities. Use of mobile phones is limited. Follow instructions from camp coordinators at all times.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item fade-on-scroll delay-7">
+                        <button class="accordion-header">
+                            <span>📢 Emergency Contacts</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="contact-list">
+                                <div class="contact-item">
+                                    <span class="contact-icon">👤</span>
+                                    <div class="contact-info">
+                                        <span class="contact-role">NSS President</span>
+                                        <span class="contact-name">Pranay Sharma</span>
+                                        <a href="tel:9820251507" class="contact-phone"><i class="fas fa-phone"></i> 98202 51507</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-icon">📱</span>
+                                    <div class="contact-info">
+                                        <span class="contact-role">NSS Media Head</span>
+                                        <span class="contact-name">Atharva Chaudahri</span>
+                                        <a href="tel:7588111407" class="contact-phone"><i class="fas fa-phone"></i> 7588111407</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item emergency">
+                                    <span class="contact-icon">🚑</span>
+                                    <div class="contact-info">
+                                        <span class="contact-role">Medical Emergency</span>
+                                        <span class="contact-name">108 / Local PHC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register / CTA Section -->
+        <section id="register" class="section">
+            <div class="container">
+                <div class="cta-box fade-on-scroll">
+                    <div class="cta-icon">🏕️</div>
+                    <h2>Ready to Join?</h2>
+                    <p>Limited spots available for this adventure.</p>
+
+                    <div class="step-tracker">
+                        <div class="step-item">
+                            <div class="step-circle">1</div>
+                            <span class="step-label">Register</span>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step-item">
+                            <div class="step-circle">2</div>
+                            <span class="step-label">Pay</span>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step-item">
+                            <div class="step-circle">3</div>
+                            <span class="step-label">Pack</span>
+                        </div>
+                    </div>
+
+                    <button id="openFormBtn" class="btn-cta">
+                        Secure Your Spot <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Modal -->
+        <div id="formModal" class="form-modal">
+            <div class="form-modal-content">
+                <button id="closeFormBtn" class="close-form-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="form-modal-title">Register for Camp 2026</h3>
+                <iframe 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSeN06sawjFptlUV_a0Lmi4B8ptt_1zyqO_dhEAvkQzxEJr_0w/viewform?embedded=true" 
+                    class="google-form-iframe"
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0">
+                    Loading…
+                </iframe>
+                <div class="form-submitted-actions">
+                    <p>After submitting the form:</p>
+                    <a href="#footer" id="goToConnectBtn" class="btn-connect">
+                        <i class="fas fa-arrow-down"></i> Go to Connect With Us
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="site-footer">
+        <div class="footer-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="shape-fill"></path>
+            </svg>
+        </div>
+
+        <div class="footer-content-wrapper">
+            <div class="container">
+                
+                <!-- Mobile-First Stacked Layout -->
+                <div class="footer-main">
+                    <!-- Logo & Motto -->
+                    <div class="footer-brand-block">
+                        <div class="footer-logo-box">
+                            <img src="nss.jpg" alt="NSS Logo" class="footer-logo-img">
+                        </div>
+                        <h3 class="f-brand">CRCE NSS</h3>
+                        <p class="nss-motto">"Not Me But You"</p>
+                    </div>
+
+                    <!-- Quick Links Pills -->
+                    <div class="footer-quick-links">
+                        <a href="#about" class="footer-link-pill">
+                            <i class="fas fa-info-circle"></i>
+                            About
+                        </a>
+                        <a href="#essentials" class="footer-link-pill">
+                            <i class="fas fa-list-check"></i>
+                            Essentials
+                        </a>
+                        <a href="#register" class="footer-link-pill">
+                            <i class="fas fa-pen-to-square"></i>
+                            Register
+                        </a>
+                    </div>
+
+                    <!-- Social Icons -->
+                    <div class="footer-social-block">
+                        <p class="social-label">Connect With Us</p>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/nss.crce/" class="social-btn instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/nsscrce/" class="social-btn linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://wa.me/9820251507?text=Hi!%20I%20have%20a%20query%20about%20NSS%20Camp%202026" target="_blank" rel="noopener" class="social-btn whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Camp Badge -->
+                    <div class="footer-badge">
+                        <div class="camp-badge">
+                            <span class="badge-icon">🏕️</span>
+                            <span class="badge-text">Camp 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copyright-bar">
+                    <p>&copy; 2026 CRCE National Service Scheme</p>
+                    <p class="made-with">Made with ❤️ for the community</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
