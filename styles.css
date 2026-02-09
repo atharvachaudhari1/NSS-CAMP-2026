@@ -180,6 +180,26 @@ body {
         height: 50px;
         width: 50px;
     }
+    
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 100px 20px 60px;
+    }
+    
+    .hero-badge {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+    }
+    
+    .main-title {
+        margin-bottom: 20px;
+    }
+    
+    .scroll-mouse {
+        margin-top: 30px;
+    }
 }
 
 .logo-text {
