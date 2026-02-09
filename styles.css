@@ -184,21 +184,22 @@ body {
     .hero {
         height: auto;
         min-height: 100vh;
-        padding: 100px 20px 60px;
+        padding: 60px 20px 40px;
+        padding-top: 80px;
     }
     
     .hero-badge {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         letter-spacing: 2px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     
     .main-title {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     
     .scroll-mouse {
-        margin-top: 30px;
+        margin-top: 20px;
     }
 }
 
@@ -1232,15 +1233,15 @@ body {
 
     /* Other Mobile Tweaks */
     .main-title {
-        font-size: 4rem;
-    }
-    
-    .title-nss {
         font-size: 5rem;
     }
     
+    .title-nss {
+        font-size: 6rem;
+    }
+    
     .title-camp {
-        font-size: 4rem;
+        font-size: 5rem;
     }
 
     .footer-content {
