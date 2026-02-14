@@ -406,9 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show toast after 0.5 second
         setTimeout(() => {
             if (musicToast) {
-                musicToast.style.opacity = '1';
-                musicToast.style.transform = 'translateX(-50%) translateY(0)';
-                musicToast.classList.add('active'); // in case CSS uses this
+                musicToast.classList.add('active');
 
                 // Set timer to play after 2 more seconds
                 autoPlayTimer = setTimeout(() => {
@@ -429,13 +427,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 musicBtn.style.animation = "pulse-music 1s infinite";
                 setTimeout(() => { musicBtn.style.animation = ""; }, 3000);
 
-                // Add a one-time listener to start music on ANY first click
+                // Add a one-time listener to start music on ANY first interaction
                 const startOnInteraction = () => {
                     audio.play().then(() => {
                         musicBtn.classList.add('playing');
                         musicIcon.classList.remove('fa-play');
                         musicIcon.classList.add('fa-pause');
-                        hideToast(); // Hide toast if still visible
+                        hideToast();
                     }).catch(e => console.log("Still blocked", e));
 
                     document.removeEventListener('click', startOnInteraction);
@@ -449,21 +447,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function hideToast() {
             if (musicToast) {
-                musicToast.style.opacity = '0';
-                musicToast.style.transform = 'translateX(-50%) translateY(100px)';
                 musicToast.classList.remove('active');
             }
         }
 
         if (cancelMusicBtn) {
-            cancelMusicBtn.addEventListener('click', () => {
+            cancelMusicBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 clearTimeout(autoPlayTimer);
                 hideToast();
                 console.log("Music autoplay cancelled by user.");
             });
         }
 
-        musicBtn.addEventListener('click', () => {
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (audio.paused) {
                 audio.play().then(() => {
                     musicBtn.classList.add('playing');
