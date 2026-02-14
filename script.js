@@ -245,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicIcon = musicBtn ? musicBtn.querySelector('i') : null;
     const musicToast = document.getElementById('music-toast');
     const toastMsg = document.getElementById('toast-msg');
+    const musicCue = document.getElementById('music-cue');
 
     if (audio && musicBtn) {
         audio.load();
@@ -257,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     musicBtn.classList.add('playing');
                     if (musicIcon) { musicIcon.classList.replace('fa-play', 'fa-pause'); }
                     hideToast();
+                    hideCue();
                     cleanup();
                 }).catch(err => console.log("Still blocked", err));
             }
@@ -278,11 +280,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
         }
 
+        // Show the slide-out cue near the button after 2s
+        setTimeout(() => {
+            if (audio.paused && musicCue) {
+                musicCue.classList.add('visible');
+            }
+        }, 2000);
+
         ['click', 'touchstart', 'scroll', 'mousedown'].forEach(evt =>
             document.addEventListener(evt, handleInteraction, { once: true })
         );
 
         function hideToast() { if (musicToast) musicToast.classList.remove('active'); }
+        function hideCue() { if (musicCue) musicCue.classList.remove('visible'); }
 
         musicBtn.addEventListener('click', (e) => {
             e.stopPropagation(); // Don't trigger document listener
@@ -291,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     musicBtn.classList.add('playing');
                     if (musicIcon) { musicIcon.classList.replace('fa-play', 'fa-pause'); }
                     hideToast();
+                    hideCue();
                 });
             } else {
                 audio.pause();
