@@ -375,9 +375,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const toastMsg = document.getElementById('toast-msg');
 
     if (audio && musicBtn && musicIcon) {
-        // Prime audio
         audio.load();
         audio.volume = 0.15;
+
+        const startOnInteraction = (e) => {
+            console.log("Global interaction detected:", e.type);
+            audio.play().then(() => {
+                console.log("Success: Music started on interaction.");
+                musicBtn.classList.add('playing');
+                if (musicIcon) {
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                }
+                musicBtn.style.animation = "";
+                hideToast();
+                removeInteractionListeners();
+            }).catch(err => {
+                console.log("Interaction play blocked:", err);
+            });
+        };
+
+        const eventTypes = ['click', 'touchstart', 'mousedown', 'pointerdown'];
+        const removeInteractionListeners = () => {
+            eventTypes.forEach(type => document.removeEventListener(type, startOnInteraction));
+        };
+
+        eventTypes.forEach(type => document.addEventListener(type, startOnInteraction));
 
         let autoPlayTimer;
 
@@ -386,42 +409,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 musicToast.classList.add('active');
 
                 autoPlayTimer = setTimeout(() => {
-                    startMusic();
+                    console.log("Timer attempt...");
+                    audio.play().then(() => {
+                        console.log("Success: Autoplay timer worked.");
+                        musicBtn.classList.add('playing');
+                        if (musicIcon) {
+                            musicIcon.classList.remove('fa-play');
+                            musicIcon.classList.add('fa-pause');
+                        }
+                        hideToast();
+                        removeInteractionListeners();
+                    }).catch(err => {
+                        console.log("Autoplay timer blocked. Message updated.");
+                        if (toastMsg) {
+                            toastMsg.innerText = "Tap anywhere to play music 🎵";
+                        }
+                        musicBtn.style.animation = "pulse-music 1s infinite";
+                    });
                 }, 2000);
             }
         }, 500);
-
-        function startMusic() {
-            audio.play().then(() => {
-                musicBtn.classList.add('playing');
-                musicIcon.classList.remove('fa-play');
-                musicIcon.classList.add('fa-pause');
-                hideToast();
-            }).catch(err => {
-                console.log("Autoplay blocked. User gesture needed.");
-                if (toastMsg) {
-                    toastMsg.innerText = "Tap anywhere to play music 🎵";
-                }
-
-                musicBtn.style.animation = "pulse-music 1s infinite";
-
-                const startOnInteraction = () => {
-                    audio.play().then(() => {
-                        musicBtn.classList.add('playing');
-                        musicIcon.classList.remove('fa-play');
-                        musicIcon.classList.add('fa-pause');
-                        musicBtn.style.animation = "";
-                        hideToast();
-                    }).catch(e => console.log("Still blocked", e));
-
-                    document.removeEventListener('click', startOnInteraction);
-                    document.removeEventListener('touchstart', startOnInteraction);
-                };
-
-                document.addEventListener('click', startOnInteraction);
-                document.addEventListener('touchstart', startOnInteraction);
-            });
-        }
 
         function hideToast() {
             if (musicToast) {
@@ -433,6 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelMusicBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 clearTimeout(autoPlayTimer);
+                removeInteractionListeners();
                 hideToast();
             });
         }
@@ -442,16 +450,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audio.paused) {
                 audio.play().then(() => {
                     musicBtn.classList.add('playing');
-                    musicIcon.classList.remove('fa-play');
-                    musicIcon.classList.add('fa-pause');
+                    if (musicIcon) {
+                        musicIcon.classList.remove('fa-play');
+                        musicIcon.classList.add('fa-pause');
+                    }
                     musicBtn.style.animation = "";
                     hideToast();
-                }).catch(err => console.log("Play failed", err));
+                    removeInteractionListeners();
+                }).catch(err => console.log("Manual play failed", err));
             } else {
                 audio.pause();
                 musicBtn.classList.remove('playing');
-                musicIcon.classList.remove('fa-pause');
-                musicIcon.classList.add('fa-play');
+                if (musicIcon) {
+                    musicIcon.classList.remove('fa-pause');
+                    musicIcon.classList.add('fa-play');
+                }
             }
         });
     }
