@@ -270,22 +270,22 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         };
 
-        // Show the slide-out cue near the button
-        setTimeout(() => {
-            if (audio.paused && musicCue) {
-                musicCue.classList.add('visible');
-            }
-        }, 1500); // Show slightly earlier
-
-        // On mobile, if music isn't started after 5s, show the toast as a backup
+        // On mobile, show the hint immediately to avoid confusion
         if (window.innerWidth < 768) {
             setTimeout(() => {
                 if (musicToast && audio.paused) {
                     musicToast.classList.add('active');
                     if (toastMsg) toastMsg.innerText = "Tap anywhere to play music 🎵";
                 }
-            }, 5000);
+            }, 1000);
         }
+
+        // Show the slide-out cue near the button after 2s
+        setTimeout(() => {
+            if (audio.paused && musicCue) {
+                musicCue.classList.add('visible');
+            }
+        }, 2000);
 
         ['click', 'touchstart', 'scroll', 'mousedown'].forEach(evt =>
             document.addEventListener(evt, handleInteraction, { once: true })
