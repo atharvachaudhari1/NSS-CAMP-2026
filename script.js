@@ -238,30 +238,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------
-    // Background Music Logic (Optimized for Mobile)
+    // Background Music Logic (Direct Experience Mode)
     // --------------------------------------------------------
     const audio = document.getElementById('camp-audio');
     const musicBtn = document.querySelector('.music-toggle');
     const musicIcon = musicBtn ? musicBtn.querySelector('i') : null;
     const musicToast = document.getElementById('music-toast');
     const toastMsg = document.getElementById('toast-msg');
-    const musicCue = document.getElementById('music-cue');
+    const closeDisclaimerBtn = document.getElementById('close-disclaimer');
 
     if (audio && musicBtn) {
         audio.load();
         audio.volume = 0.15;
 
-        // Immediate interaction capture for ANY element on the page
-        const handleInteraction = () => {
+        // Function to start music
+        const startMusic = () => {
             if (audio.paused) {
                 audio.play().then(() => {
                     musicBtn.classList.add('playing');
                     if (musicIcon) { musicIcon.classList.replace('fa-play', 'fa-pause'); }
                     hideToast();
-                    hideCue();
                     cleanup();
-                }).catch(err => console.log("Still blocked", err));
+                }).catch(err => {
+                    console.log("Autoplay still blocked by browser policy. Interaction needed.");
+                });
             }
+        };
+
+        const handleInteraction = () => {
+            startMusic();
         };
 
         const cleanup = () => {
@@ -270,38 +275,40 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         };
 
-        // On mobile, show the hint immediately to avoid confusion
-        if (window.innerWidth < 768) {
-            setTimeout(() => {
-                if (musicToast && audio.paused) {
-                    musicToast.classList.add('active');
-                    if (toastMsg) toastMsg.innerText = "Tap anywhere to play music 🎵";
-                }
-            }, 1000);
-        }
+        // Attempt direct autoplay on load
+        window.addEventListener('load', startMusic);
 
-        // Show the slide-out cue near the button after 2s
-        setTimeout(() => {
-            if (audio.paused && musicCue) {
-                musicCue.classList.add('visible');
-            }
-        }, 2000);
-
+        // Capture ANY interaction to play (effectively autoplay after first touch/scroll)
         ['click', 'touchstart', 'scroll', 'mousedown'].forEach(evt =>
             document.addEventListener(evt, handleInteraction, { once: true })
         );
 
+        // Show disclaimer immediately on mobile
+        if (window.innerWidth < 768) {
+            setTimeout(() => {
+                if (musicToast && audio.paused) {
+                    musicToast.classList.add('active');
+                }
+            }, 800);
+        }
+
         function hideToast() { if (musicToast) musicToast.classList.remove('active'); }
-        function hideCue() { if (musicCue) musicCue.classList.remove('visible'); }
+
+        if (closeDisclaimerBtn) {
+            closeDisclaimerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                startMusic(); // Also try playing when they dismiss
+                hideToast();
+            });
+        }
 
         musicBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Don't trigger document listener
+            e.stopPropagation();
             if (audio.paused) {
                 audio.play().then(() => {
                     musicBtn.classList.add('playing');
                     if (musicIcon) { musicIcon.classList.replace('fa-play', 'fa-pause'); }
                     hideToast();
-                    hideCue();
                 });
             } else {
                 audio.pause();

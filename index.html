@@ -50,27 +50,23 @@
     </div>
 
     <!-- Background Music -->
-    <!-- Background Music -->
     <audio id="camp-audio" loop preload="auto" playsinline webkit-playsinline>
         <source src="song.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <!-- Music Toggle Button -->
-    <div class="music-cue" id="music-cue">
-        Play for better experience 🎵
-    </div>
     <div class="music-toggle" title="Play Music">
         <i class="fas fa-play"></i>
     </div>
 
-    <!-- Music Notification Toast -->
-    <div id="music-toast" class="music-toast">
+    <!-- Music Disclaimer Toast -->
+    <div id="music-toast" class="music-toast disclaimer">
         <div class="toast-content">
-            <i class="fas fa-music"></i>
-            <span id="toast-msg">Background music will start in 2s...</span>
+            <i class="fas fa-volume-up"></i>
+            <span id="toast-msg">Note: Background music will play automatically for the best experience.</span>
         </div>
-        <button id="cancel-music" class="toast-btn">Cancel</button>
+        <button id="close-disclaimer" class="toast-btn">Got it!</button>
     </div>
 
     <!-- Modern Layered Background -->
