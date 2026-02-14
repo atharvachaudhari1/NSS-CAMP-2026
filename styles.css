@@ -3436,9 +3436,17 @@ body {
 /* Mobile Adjustments for Toast */
 @media (max-width: 768px) {
     .music-toast {
-        bottom: 90px;
-        /* Higher to avoid overlap */
-        width: 90%;
-        padding: 12px 20px;
+        bottom: 100px;
+        width: 85%;
+        padding: 12px 15px;
+        z-index: 99999;
+        /* Ensure it's on top of everything */
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        /* Reset transform base */
+    }
+
+    .music-toast.active {
+        transform: translateX(-50%) translateY(0);
     }
 }
