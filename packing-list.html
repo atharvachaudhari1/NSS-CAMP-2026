@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packing Checklist | NSS CAMP 2026</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Fredoka:wght@600&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- PWA Manifest & Icons -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="apple-touch-icon" href="nss.jpg">
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- Navigation (Floating Glass) -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-brand">
+                <img src="nss.jpg" alt="NSS Logo" class="logo-img">
+                <span class="logo-text">NSS <span>CRCE</span></span>
+            </a>
+            <a href="index.html" class="btn-cta" style="padding: 8px 15px; font-size: 0.9rem;">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 40vh; padding-top: 120px;">
+        <div class="container hero-content">
+            <h1 class="main-title" style="margin-bottom: 20px;">Packing <span class="year-accent">Checklist</span></h1>
+            <p style="color: rgba(255,255,255,0.8);">Don't forget a thing for your 7-day adventure!</p>
+        </div>
+
+        <!-- Background Decorations (Parallax) -->
+        <div class="sun-layer"></div>
+        <div class="mountain-layer"></div>
+        <div class="hill-layer-1"></div>
+        <div class="hill-layer-2"></div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="checklist-container fade-on-scroll">
+
+                <div class="checklist-group">
+                    <h3>Clothes & Footwear</h3>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>4-5 sets of comfortable clothes (Full sleeves recommended)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>1 set of formal/NSS Uniform (if applicable)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Nightwear / Track pants</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Sports shoes / Sturdy footwear (Mandatory)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Slippers / Sandals for downtime</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Socks (4-5 pairs) & Undergarments</span>
+                    </label>
+                </div>
+
+                <div class="checklist-group">
+                    <h3>Toiletries & Personal Care</h3>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Toothbrush & Toothpaste</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Soap, Shampoo & Facewash</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Bath Towel & Hand Towel</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Sanitizer & Handwash</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Sunscreen & Moisturizer</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Mosquito Repellent (Odomos) - Very Important!</span>
+                    </label>
+                </div>
+
+                <div class="checklist-group">
+                    <h3>Essentials</h3>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Water Bottle (Reusable, 1 Litre+)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Dish/Plate, Bowl, Spoon, Glass (Steel recommended)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Bedding (Sleeping Bag or Bed sheet + Blanket)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Torch / Flashlight with extra batteries</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Power Bank & Charger</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Personal Medicines (if any) + First Aid basics</span>
+                    </label>
+                </div>
+
+                <div class="checklist-group">
+                    <h3>Stationery & Others</h3>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Notebook & Pen (for daily logs/feedback)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>College ID Card (Mandatory)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Some cash (for emergency/personal use)</span>
+                    </label>
+                    <label class="check-item">
+                        <input type="checkbox">
+                        <span>Snacks (Dry snacks, biscuits, etc.) - Optional</span>
+                    </label>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button id="reset-checklist" class="btn-cta" style="background: #e74c3c; border: none;">Reset
+                        Checklist</button>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">Checklist progress is saved
+                        automatically.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="container footer-content">
+            <p>&copy; 2026 NSS Unit, Fr. Conceicao Rodrigues College of Engineering.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Reset Logic Specific to this page
+        document.getElementById('reset-checklist').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear your checklist progress?')) {
+                const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+                checkboxes.forEach((cb, index) => {
+                    cb.checked = false;
+                    localStorage.setItem(`nss_camp_check_${index}`, false);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
