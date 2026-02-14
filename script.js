@@ -1,39 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
-    // --------------------------------------------------------
     // Loader Logic (Session Based)
     // --------------------------------------------------------
     const loader = document.getElementById('loader-wrapper');
     const hasSeenLoader = sessionStorage.getItem('nss_camp_loader_shown');
 
     if (hasSeenLoader) {
-        // If seen, hide immediately
         if (loader) {
-            loader.style.display = 'none'; // distinct from class hidden to ensure no flicker
+            loader.style.display = 'none';
             loader.classList.add('hidden');
         }
         document.body.classList.add('loaded');
     } else {
-        // If not seen, show animation and save state
         window.addEventListener('load', () => {
             setTimeout(() => {
                 if (loader) {
                     loader.classList.add('hidden');
-                    // Start Hero Animations after loader clears
                     document.body.classList.add('loaded');
                     sessionStorage.setItem('nss_camp_loader_shown', 'true');
                 }
             }, 2500);
         });
 
-        // Fallback if load event already fired or takes too long
         setTimeout(() => {
             if (loader && !loader.classList.contains('hidden')) {
                 loader.classList.add('hidden');
                 document.body.classList.add('loaded');
                 sessionStorage.setItem('nss_camp_loader_shown', 'true');
             }
-        }, 5000); // slightly longer fallback just in case
+        }, 5000);
     }
 
 
@@ -81,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentItem = header.parentElement;
             const content = header.nextElementSibling;
 
-            // Close other items
             document.querySelectorAll('.accordion-item').forEach(item => {
                 if (item !== currentItem && item.classList.contains('active')) {
                     item.classList.remove('active');
@@ -89,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Toggle current
             currentItem.classList.toggle('active');
 
             if (currentItem.classList.contains('active')) {
@@ -194,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.add('card-3d');
 
         card.addEventListener('mousemove', (e) => {
-            if (window.innerWidth < 768) return; // Disable on mobile
+            if (window.innerWidth < 768) return;
 
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -220,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const parallaxContainer = document.querySelector('.parallax-container');
 
     document.addEventListener('mousemove', (e) => {
-        if (window.innerWidth < 768) return; // Disable on mobile
+        if (window.innerWidth < 768) return;
 
         const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
         const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -272,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
     const checklistItems = document.querySelectorAll('.check-item input[type="checkbox"]');
 
-    // Load saved state
     checklistItems.forEach((checkbox, index) => {
         const savedState = localStorage.getItem(`nss_camp_check_${index}`);
         if (savedState === 'true') {
@@ -293,24 +285,12 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', () => {
             const rect = timeline.getBoundingClientRect();
             const windowHeight = window.innerHeight;
-
-            // Start drawing when top of timeline hits 80% viewport height
             const startOffset = windowHeight * 0.8;
-
-            // Calculate how much of the timeline is "past" that point
-            // rect.top is distance from top of viewport to top of element
-            // As we scroll down, rect.top decreases (becomes negative)
-
-            // Progress = (Start Point - Current Top) / Total Height
-            // We want 0% when rect.top = startOffset
-            // We want 100% when rect.bottom = startOffset (or slightly before)
-
             const totalHeight = rect.height;
             const scrolledPast = startOffset - rect.top;
 
             let percentage = (scrolledPast / totalHeight) * 100;
 
-            // Clamping
             if (percentage < 0) percentage = 0;
             if (percentage > 100) percentage = 100;
 
@@ -329,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function openSidebar() {
         sidebarMenu.classList.add('active');
         sidebarOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
     }
 
     function closeSidebar() {
@@ -359,28 +339,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
     const heroSection = document.querySelector('.hero');
     if (heroSection) {
-        // Create fireflies
         for (let i = 0; i < 25; i++) {
             const firefly = document.createElement('div');
             firefly.classList.add('firefly');
 
-            // Random start position (percentage)
             const left = Math.random() * 100;
-            const top = Math.random() * 80 + 10; // Avoid top/bottom 10%
+            const top = Math.random() * 80 + 10;
 
             firefly.style.left = `${left}%`;
             firefly.style.top = `${top}%`;
 
-            // Set random movement variables for CSS
             const moveX = (Math.random() - 0.5) * 200 + 'px';
             const moveY = (Math.random() - 0.5) * 150 + 'px';
 
             firefly.style.setProperty('--move-x', moveX);
             firefly.style.setProperty('--move-y', moveY);
 
-            // Random animation timings
-            const duration = 10 + Math.random() * 10; // 10-20s
-            const delay = Math.random() * -20; // Start at random point in cycle
+            const duration = 10 + Math.random() * 10;
+            const delay = Math.random() * -20;
 
             firefly.style.animation = `drift ${duration}s linear infinite, flash 3s ease-in-out infinite`;
             firefly.style.animationDelay = `${delay}s`;
@@ -396,22 +372,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicIcon = musicBtn ? musicBtn.querySelector('i') : null;
     const musicToast = document.getElementById('music-toast');
     const cancelMusicBtn = document.getElementById('cancel-music');
+    const toastMsg = document.getElementById('toast-msg');
 
     if (audio && musicBtn && musicIcon) {
-        // Very low volume initially for classroom safety
+        // Prime audio
+        audio.load();
         audio.volume = 0.15;
 
         let autoPlayTimer;
 
-        // Show toast after 0.5 second
         setTimeout(() => {
             if (musicToast) {
                 musicToast.classList.add('active');
 
-                // Set timer to play after 2 more seconds
                 autoPlayTimer = setTimeout(() => {
                     startMusic();
-                    hideToast();
                 }, 2000);
             }
         }, 500);
@@ -421,18 +396,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 musicBtn.classList.add('playing');
                 musicIcon.classList.remove('fa-play');
                 musicIcon.classList.add('fa-pause');
+                hideToast();
             }).catch(err => {
-                console.log("Autoplay prevented by browser: ", err);
-                // Blink button to indicate it's ready
-                musicBtn.style.animation = "pulse-music 1s infinite";
-                setTimeout(() => { musicBtn.style.animation = ""; }, 3000);
+                console.log("Autoplay blocked. User gesture needed.");
+                if (toastMsg) {
+                    toastMsg.innerText = "Tap anywhere to play music 🎵";
+                }
 
-                // Add a one-time listener to start music on ANY first interaction
+                musicBtn.style.animation = "pulse-music 1s infinite";
+
                 const startOnInteraction = () => {
                     audio.play().then(() => {
                         musicBtn.classList.add('playing');
                         musicIcon.classList.remove('fa-play');
                         musicIcon.classList.add('fa-pause');
+                        musicBtn.style.animation = "";
                         hideToast();
                     }).catch(e => console.log("Still blocked", e));
 
@@ -456,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.stopPropagation();
                 clearTimeout(autoPlayTimer);
                 hideToast();
-                console.log("Music autoplay cancelled by user.");
             });
         }
 
@@ -467,9 +444,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     musicBtn.classList.add('playing');
                     musicIcon.classList.remove('fa-play');
                     musicIcon.classList.add('fa-pause');
-                }).catch(err => {
-                    console.log("Audio play failed:", err);
-                });
+                    musicBtn.style.animation = "";
+                    hideToast();
+                }).catch(err => console.log("Play failed", err));
             } else {
                 audio.pause();
                 musicBtn.classList.remove('playing');
