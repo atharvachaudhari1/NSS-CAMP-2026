@@ -403,20 +403,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let autoPlayTimer;
 
-        // Show toast after 1 second
+        // Show toast after 0.5 second
         setTimeout(() => {
             if (musicToast) {
                 musicToast.style.opacity = '1';
                 musicToast.style.transform = 'translateX(-50%) translateY(0)';
                 musicToast.classList.add('active'); // in case CSS uses this
 
-                // Set timer to play after 3 more seconds (total 4s from load)
+                // Set timer to play after 2 more seconds
                 autoPlayTimer = setTimeout(() => {
                     startMusic();
                     hideToast();
-                }, 3000);
+                }, 2000);
             }
-        }, 1000);
+        }, 500);
 
         function startMusic() {
             audio.play().then(() => {
