@@ -353,6 +353,44 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarLinks.forEach(link => {
         link.addEventListener('click', closeSidebar);
     });
+
+    // --------------------------------------------------------
+    // Firefly Generator (Visual Enhancement)
+    // --------------------------------------------------------
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        // Create fireflies
+        for (let i = 0; i < 25; i++) {
+            const firefly = document.createElement('div');
+            firefly.classList.add('firefly');
+
+            // Random start position (percentage)
+            const left = Math.random() * 100;
+            const top = Math.random() * 80 + 10; // Avoid top/bottom 10%
+
+            firefly.style.left = `${left}%`;
+            firefly.style.top = `${top}%`;
+
+            // Set random movement variables for CSS
+            const moveX = (Math.random() - 0.5) * 200 + 'px';
+            const moveY = (Math.random() - 0.5) * 150 + 'px';
+
+            firefly.style.setProperty('--move-x', moveX);
+            firefly.style.setProperty('--move-y', moveY);
+
+            // Random animation timings
+            const duration = 10 + Math.random() * 10; // 10-20s
+            const delay = Math.random() * -20; // Start at random point in cycle
+
+            firefly.style.animation = `drift ${duration}s linear infinite, flash 3s ease-in-out infinite`;
+            firefly.style.animationDelay = `${delay}s`;
+
+            heroSection.appendChild(firefly);
+        }
+    }
 });
+
+
+
 
 

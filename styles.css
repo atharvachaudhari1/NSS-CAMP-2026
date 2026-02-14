@@ -2328,7 +2328,46 @@ body {
     }
 
     .firefly {
-        display: none;
+        /* Keep fireflies on mobile but maybe fewer? Or enable them? */
+        /* Let's keep them, they are just small divs */
+        display: block;
+    }
+}
+
+/* Firefly Animation */
+.firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    animation: drift 10s infinite linear, flash 3s infinite ease-in-out;
+    z-index: 5;
+    /* Behind content but above background */
+}
+
+@keyframes drift {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(var(--move-x), var(--move-y));
+    }
+}
+
+@keyframes flash {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
     }
 }
 
