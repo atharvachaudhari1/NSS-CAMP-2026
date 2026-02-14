@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nss-camp-v1';
+const CACHE_NAME = 'nss-camp-v2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
     './styles.css',
     './script.js',
     './nss.jpg',
+    './song.mp3',
     './nss_logo.svg',
     './consent-form.pdf',
     './rulebook.pdf',
