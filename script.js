@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.classList.add('loaded');
                     sessionStorage.setItem('nss_camp_loader_shown', 'true');
                 }
-            }, 2500);
+            }, 1500);
         });
 
         setTimeout(() => {
@@ -187,7 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const tiltCards = document.querySelectorAll('.about-card, .cta-box, .accordion-item');
 
     tiltCards.forEach(card => {
-        card.classList.add('card-3d');
+        if (window.innerWidth >= 768) {
+            card.classList.add('card-3d');
+        }
 
         card.addEventListener('mousemove', (e) => {
             if (window.innerWidth < 768) return;
@@ -341,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Firefly Generator (Visual Enhancement)
     // --------------------------------------------------------
     const heroSection = document.querySelector('.hero');
-    if (heroSection) {
+    if (heroSection && window.innerWidth >= 768) {
         for (let i = 0; i < 25; i++) {
             const firefly = document.createElement('div');
             firefly.classList.add('firefly');

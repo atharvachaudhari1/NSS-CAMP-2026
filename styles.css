@@ -35,9 +35,7 @@ body {
     line-height: 1.6;
 }
 
-/* =========================================
-   Parallax Background System
-   ========================================= */
+/* Parallax Background System */
 .parallax-container {
     position: fixed;
     top: 0;
@@ -47,6 +45,18 @@ body {
     z-index: -1;
     overflow: hidden;
     background: linear-gradient(to bottom, #A1C4FD 0%, #C2E9FB 100%);
+}
+
+@media (max-width: 768px) {
+    .parallax-container {
+        display: none;
+        /* Disable multi-layer parallax on mobile for stability */
+    }
+
+    body {
+        background: linear-gradient(to bottom, #A1C4FD 0%, #C2E9FB 100%);
+        background-attachment: fixed;
+    }
 }
 
 .layer {
@@ -130,11 +140,19 @@ body {
     /* Only transition what's needed */
 }
 
-.navbar.scrolled {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    padding: 15px 0;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 0 !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        transition: none !important;
+        /* Remove jitter on scroll */
+    }
+
+    .navbar.scrolled {
+        padding: 15px 0 !important;
+    }
 }
 
 .nav-container {
@@ -2023,6 +2041,26 @@ body {
     will-change: transform;
 }
 
+@media (max-width: 768px) {
+
+    .card-3d,
+    .tilt-card,
+    .accordion-item,
+    .cta-box,
+    .back-to-top,
+    .music-toggle {
+        transform: none !important;
+        perspective: none !important;
+        transform-style: flat !important;
+        transition: none !important;
+    }
+
+    .firefly,
+    .floating-elements {
+        display: none !important;
+    }
+}
+
 .card-3d::after {
     content: '';
     position: absolute;
@@ -3366,14 +3404,21 @@ body {
 /* Mobile Tweaks */
 @media (max-width: 768px) {
     .music-toggle {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
+        bottom: 25px !important;
+        right: 25px !important;
+        width: 55px !important;
+        height: 55px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+        transition: none !important;
     }
 
     .music-toggle i {
-        font-size: 1.2rem;
+        font-size: 1.3rem !important;
+    }
+
+    .music-toggle.playing {
+        animation: none !important;
+        /* Remove pulsing animation if distracting on mobile */
     }
 }
 
