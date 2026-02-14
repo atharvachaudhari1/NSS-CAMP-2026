@@ -283,6 +283,42 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(`nss_camp_check_${index}`, checkbox.checked);
         });
     });
+    // --------------------------------------------------------
+    // Sidebar Navigation Logic
+    // --------------------------------------------------------
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebarMenu = document.querySelector('.sidebar-menu');
+    const closeMenu = document.querySelector('.close-menu');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    function openSidebar() {
+        sidebarMenu.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeSidebar() {
+        sidebarMenu.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', openSidebar);
+    }
+
+    if (closeMenu) {
+        closeMenu.addEventListener('click', closeSidebar);
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', closeSidebar);
+    }
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', closeSidebar);
+    });
 });
 
 
