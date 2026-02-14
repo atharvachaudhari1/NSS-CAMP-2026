@@ -97,33 +97,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
     // Navigation & Scroll Logic (No Animations on Mobile)
     // --------------------------------------------------------
-    let ticking = false;
+    // --------------------------------------------------------
+    // Navigation & Scroll Logic (Stationary Only)
+    // --------------------------------------------------------
     window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const scrolled = window.scrollY;
-
-                // Disable parallax on mobile to prevent jitters/movement issues
-                if (window.innerWidth >= 768) {
-                    const hill1 = document.querySelector('.hill-layer-1');
-                    const hill2 = document.querySelector('.hill-layer-2');
-                    const sun = document.querySelector('.sun-layer');
-
-                    if (hill1) hill1.style.transform = `scaleX(1.5) translateY(${scrolled * 0.1}px)`;
-                    if (hill2) hill2.style.transform = `translateY(${scrolled * 0.05}px)`;
-                    if (sun) sun.style.transform = `translateY(${scrolled * 0.15}px)`;
-                }
-
-                const navbar = document.querySelector('.navbar');
-                if (scrolled > 30) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-
-                ticking = false;
-            });
-            ticking = true;
+        const scrolled = window.scrollY;
+        const navbar = document.querySelector('.navbar');
+        if (scrolled > 30) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
     });
 
@@ -136,15 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
-
-    // Tap Feedback (Only on Desktop/High End)
-    if (window.innerWidth >= 768) {
-        const interactables = document.querySelectorAll('.feature-card, .glass-pill, .btn-cta, .footer-link-pill, .social-btn, .accordion-header');
-        interactables.forEach(el => {
-            el.addEventListener('touchstart', () => { el.style.transform = 'scale(0.96)'; });
-            el.addEventListener('touchend', () => { el.style.transform = ''; });
-        });
-    }
 
     // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -172,26 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // --------------------------------------------------------
-    // 3D Tilt Effect for Cards (Desktop Only)
-    // --------------------------------------------------------
-    const tiltCards = document.querySelectorAll('.about-card, .cta-box, .accordion-item');
-    if (window.innerWidth >= 768) {
-        tiltCards.forEach(card => {
-            card.classList.add('card-3d');
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-            });
-            card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)'; });
-        });
-    }
+    // 3D Tilt Effect Removed (Stationary Interface)
 
     // --------------------------------------------------------
     // Sidebar Navigation Logic
@@ -219,23 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sidebarOverlay) { sidebarOverlay.addEventListener('click', closeSidebar); }
     sidebarLinks.forEach(link => { link.addEventListener('click', closeSidebar); });
 
-    // --------------------------------------------------------
-    // Firefly Generator (Desktop Only)
-    // --------------------------------------------------------
-    const heroSection = document.querySelector('.hero');
-    if (heroSection && window.innerWidth >= 768) {
-        for (let i = 0; i < 25; i++) {
-            const firefly = document.createElement('div');
-            firefly.classList.add('firefly');
-            firefly.style.left = `${Math.random() * 100}%`;
-            firefly.style.top = `${Math.random() * 80 + 10}%`;
-            firefly.style.setProperty('--move-x', (Math.random() - 0.5) * 200 + 'px');
-            firefly.style.setProperty('--move-y', (Math.random() - 0.5) * 150 + 'px');
-            firefly.style.animation = `drift ${10 + Math.random() * 10}s linear infinite, flash 3s ease-in-out infinite`;
-            firefly.style.animationDelay = `${Math.random() * -20}s`;
-            heroSection.appendChild(firefly);
-        }
-    }
+    // Firefly Generator Removed (Stationary Interface)
 
     // --------------------------------------------------------
     // Background Music Logic (Direct Experience Mode)

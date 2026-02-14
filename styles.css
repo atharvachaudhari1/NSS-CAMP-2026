@@ -78,7 +78,7 @@ body {
     opacity: 0.8;
 }
 
-/* Clouds - subtle SVG shapes */
+/* Clouds - subtle SVG shapes (Static) */
 .cloud-layer-back {
     height: 100%;
     background-image: url("data:image/svg+xml,%3Csvg width='200' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 60 A20 20 0 0 1 60 60 A30 30 0 0 1 120 60 A20 20 0 0 1 140 60 L 20 60 Z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");
@@ -86,7 +86,6 @@ body {
     background-position: 0 20%;
     background-size: 400px;
     opacity: 0.7;
-    animation: moveClouds 60s linear infinite;
 }
 
 @keyframes moveClouds {
@@ -135,9 +134,6 @@ body {
     width: 100%;
     padding: 20px 0;
     z-index: 2000;
-    /* Higher to stay above content */
-    transition: background 0.3s, padding 0.3s, box-shadow 0.3s;
-    /* Only transition what's needed */
 }
 
 @media (max-width: 768px) {
@@ -3243,25 +3239,20 @@ body {
 .sidebar-menu {
     position: fixed;
     top: 0;
-    right: -300px;
-    /* Hidden by default */
+    right: 0;
     width: 280px;
     height: 100%;
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    /* Dark Slate Theme */
+    background: #1e293b;
     z-index: 10000;
-    /* Extremely high */
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
+    display: none;
+    /* Controlled by JS class .active */
     flex-direction: column;
     padding: 25px;
-    transform: translateX(0);
-    /* Better than animating 'right' */
 }
 
 .sidebar-menu.active {
-    transform: translateX(-300px);
+    display: flex;
 }
 
 .sidebar-header {
@@ -3457,32 +3448,52 @@ body {
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
+
+    /* Hard-kill ALL movement/transitions on Mobile */
+    * {
+        transition: none !important;
+        animation: none !important;
+        transform: translateZ(0);
+        /* Hardware acceleration without movement */
+    }
+
     .music-toast {
-        width: 92%;
-        min-width: unset;
-        bottom: 20px;
-        flex-direction: column;
-        text-align: center;
-        transform: translateX(-50%);
-        /* Center only, no Y movement */
+        width: 94% !important;
+        bottom: 20px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        flex-direction: column !important;
+        text-align: center !important;
+        display: none !important;
+        position: fixed !important;
     }
 
     .music-toast.active {
-        display: flex;
+        display: flex !important;
     }
 
     .music-toggle {
-        display: none;
+        display: none !important;
     }
 
     .music-toggle.playing {
-        display: flex;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
+        display: flex !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 50px !important;
+        height: 50px !important;
         background: #2ecc71 !important;
-        transform: none;
-        /* No movement */
+        position: fixed !important;
+    }
+
+    .sidebar-menu {
+        width: 100% !important;
+        right: 0 !important;
+        transform: none !important;
+        display: none !important;
+    }
+
+    .sidebar-menu.active {
+        display: flex !important;
     }
 }
