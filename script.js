@@ -1,28 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------
-    // Loader Logic
     // --------------------------------------------------------
-    // Wait for all assets to load, then fade out after 2.5 seconds
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const loader = document.getElementById('loader-wrapper');
-            if (loader) {
-                loader.classList.add('hidden');
-                // Start Hero Animations after loader clears
-                document.body.classList.add('loaded');
-            }
-        }, 2500);
-    });
+    // Loader Logic (Session Based)
+    // --------------------------------------------------------
+    const loader = document.getElementById('loader-wrapper');
+    const hasSeenLoader = sessionStorage.getItem('nss_camp_loader_shown');
 
-    // Fallback if load event already fired
-    if (document.readyState === 'complete') {
+    if (hasSeenLoader) {
+        // If seen, hide immediately
+        if (loader) {
+            loader.style.display = 'none'; // distinct from class hidden to ensure no flicker
+            loader.classList.add('hidden');
+        }
+        document.body.classList.add('loaded');
+    } else {
+        // If not seen, show animation and save state
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (loader) {
+                    loader.classList.add('hidden');
+                    // Start Hero Animations after loader clears
+                    document.body.classList.add('loaded');
+                    sessionStorage.setItem('nss_camp_loader_shown', 'true');
+                }
+            }, 2500);
+        });
+
+        // Fallback if load event already fired or takes too long
         setTimeout(() => {
-            const loader = document.getElementById('loader-wrapper');
             if (loader && !loader.classList.contains('hidden')) {
                 loader.classList.add('hidden');
                 document.body.classList.add('loaded');
+                sessionStorage.setItem('nss_camp_loader_shown', 'true');
             }
-        }, 2500);
+        }, 5000); // slightly longer fallback just in case
     }
 
 
@@ -158,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Back to Top Button
     // --------------------------------------------------------
     const backToTopBtn = document.getElementById('back-to-top');
-    
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 400) {
             backToTopBtn.classList.add('visible');
@@ -178,26 +189,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3D Tilt Effect for Cards
     // --------------------------------------------------------
     const tiltCards = document.querySelectorAll('.about-card, .cta-box, .accordion-item');
-    
+
     tiltCards.forEach(card => {
         card.classList.add('card-3d');
-        
+
         card.addEventListener('mousemove', (e) => {
             if (window.innerWidth < 768) return; // Disable on mobile
-            
+
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 10;
             const rotateY = (centerX - x) / 10;
-            
+
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
         });
-        
+
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
         });
@@ -207,20 +218,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mouse Parallax for Background Layers
     // --------------------------------------------------------
     const parallaxContainer = document.querySelector('.parallax-container');
-    
+
     document.addEventListener('mousemove', (e) => {
         if (window.innerWidth < 768) return; // Disable on mobile
-        
+
         const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
         const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        
+
         const sun = document.querySelector('.sun-layer');
         const clouds = document.querySelector('.cloud-layer-back');
         const mountains = document.querySelector('.mountain-layer');
         const hill1 = document.querySelector('.hill-layer-1');
         const hill2 = document.querySelector('.hill-layer-2');
         const trees = document.querySelector('.tree-layer');
-        
+
         if (sun) sun.style.transform = `translate(${mouseX * 30}px, ${mouseY * 20}px)`;
         if (clouds) clouds.style.transform = `translate(${mouseX * 20}px, ${mouseY * 10}px)`;
         if (mountains) mountains.style.transform = `translate(${mouseX * 15}px, ${mouseY * 8}px)`;
@@ -233,76 +244,45 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3D Title Mouse Follow
     // --------------------------------------------------------
     const mainTitle = document.querySelector('.main-title');
-    
+
     if (mainTitle) {
         mainTitle.addEventListener('mousemove', (e) => {
             if (window.innerWidth < 768) return;
-            
+
             const rect = mainTitle.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 20;
             const rotateY = (centerX - x) / 20;
-            
+
             mainTitle.style.transform = `perspective(500px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
         });
-        
+
         mainTitle.addEventListener('mouseleave', () => {
             mainTitle.style.transform = 'perspective(500px) rotateX(0) rotateY(0)';
         });
     }
 
     // --------------------------------------------------------
-    // Form Modal Logic
+    // Interactive Packing List (LocalStorage)
     // --------------------------------------------------------
-    const formModal = document.getElementById('formModal');
-    const openFormBtn = document.getElementById('openFormBtn');
-    const closeFormBtn = document.getElementById('closeFormBtn');
-    const goToConnectBtn = document.getElementById('goToConnectBtn');
+    const checklistItems = document.querySelectorAll('.check-item input[type="checkbox"]');
 
-    if (openFormBtn && formModal) {
-        openFormBtn.addEventListener('click', () => {
-            formModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
+    // Load saved state
+    checklistItems.forEach((checkbox, index) => {
+        const savedState = localStorage.getItem(`nss_camp_check_${index}`);
+        if (savedState === 'true') {
+            checkbox.checked = true;
+        }
 
-        closeFormBtn.addEventListener('click', () => {
-            formModal.classList.remove('active');
-            document.body.style.overflow = '';
+        checkbox.addEventListener('change', () => {
+            localStorage.setItem(`nss_camp_check_${index}`, checkbox.checked);
         });
-
-        // Close on background click
-        formModal.addEventListener('click', (e) => {
-            if (e.target === formModal) {
-                formModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Close modal and scroll to footer
-        goToConnectBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            formModal.classList.remove('active');
-            document.body.style.overflow = '';
-            
-            setTimeout(() => {
-                const footer = document.getElementById('footer');
-                if (footer) {
-                    footer.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 100);
-        });
-
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && formModal.classList.contains('active')) {
-                formModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    }
+    });
 });
+
+
