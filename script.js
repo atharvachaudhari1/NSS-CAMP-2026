@@ -103,13 +103,16 @@ document.addEventListener('DOMContentLoaded', () => {
             window.requestAnimationFrame(() => {
                 const scrolled = window.scrollY;
 
-                const hill1 = document.querySelector('.hill-layer-1');
-                const hill2 = document.querySelector('.hill-layer-2');
-                const sun = document.querySelector('.sun-layer');
+                // Disable parallax on mobile to prevent jitters/movement issues
+                if (window.innerWidth >= 768) {
+                    const hill1 = document.querySelector('.hill-layer-1');
+                    const hill2 = document.querySelector('.hill-layer-2');
+                    const sun = document.querySelector('.sun-layer');
 
-                if (hill1) hill1.style.transform = `scaleX(1.5) translateY(${scrolled * 0.1}px)`;
-                if (hill2) hill2.style.transform = `translateY(${scrolled * 0.05}px)`;
-                if (sun) sun.style.transform = `translateY(${scrolled * 0.15}px)`;
+                    if (hill1) hill1.style.transform = `scaleX(1.5) translateY(${scrolled * 0.1}px)`;
+                    if (hill2) hill2.style.transform = `translateY(${scrolled * 0.05}px)`;
+                    if (sun) sun.style.transform = `translateY(${scrolled * 0.15}px)`;
+                }
 
                 const navbar = document.querySelector('.navbar');
                 if (scrolled > 30) {
