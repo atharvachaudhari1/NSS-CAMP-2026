@@ -3298,3 +3298,147 @@ body {
     background: var(--accent);
     color: white;
 }
+
+/* =========================================
+   Music Player
+   ========================================= */
+.music-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    /* Glass */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.music-toggle i {
+    font-size: 1.5rem;
+    color: var(--accent);
+    /* Accent for better visibility */
+    transition: color 0.3s;
+}
+
+.music-toggle.playing {
+    border-color: var(--accent);
+    background: rgba(231, 111, 81, 0.1);
+    box-shadow: 0 0 20px rgba(231, 111, 81, 0.4);
+    animation: musicPulse 2s infinite;
+}
+
+@keyframes musicPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 111, 81, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(231, 111, 81, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 111, 81, 0);
+    }
+}
+
+/* Mobile Tweaks */
+@media (max-width: 768px) {
+    .music-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .music-toggle i {
+        font-size: 1.2rem;
+    }
+}
+
+/* =========================================
+   Music Notification Toast
+   ========================================= */
+.music-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    /* Hidden initially */
+    background: rgba(30, 41, 59, 0.95);
+    /* Nearly opaque dark blue */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-width: 280px;
+}
+
+.music-toast.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+.toast-content i {
+    color: var(--accent);
+    animation: bounce 1s infinite;
+}
+
+.toast-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+}
+
+.toast-btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* Mobile Adjustments for Toast */
+@media (max-width: 768px) {
+    .music-toast {
+        bottom: 90px;
+        /* Higher to avoid overlap */
+        width: 90%;
+        padding: 12px 20px;
+    }
+}

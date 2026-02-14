@@ -388,9 +388,80 @@ document.addEventListener('DOMContentLoaded', () => {
             heroSection.appendChild(firefly);
         }
     }
+    // --------------------------------------------------------
+    // Background Music Logic (With Toast Notification)
+    // --------------------------------------------------------
+    const audio = document.getElementById('camp-audio');
+    const musicBtn = document.querySelector('.music-toggle');
+    const musicIcon = musicBtn ? musicBtn.querySelector('i') : null;
+    const musicToast = document.getElementById('music-toast');
+    const cancelMusicBtn = document.getElementById('cancel-music');
+
+    if (audio && musicBtn && musicIcon) {
+        // Very low volume initially for classroom safety
+        audio.volume = 0.15;
+
+        let autoPlayTimer;
+
+        // Show toast after 1 second
+        setTimeout(() => {
+            if (musicToast) {
+                musicToast.style.opacity = '1';
+                musicToast.style.transform = 'translateX(-50%) translateY(0)';
+                musicToast.classList.add('active'); // in case CSS uses this
+
+                // Set timer to play after 3 more seconds (total 4s from load)
+                autoPlayTimer = setTimeout(() => {
+                    startMusic();
+                    hideToast();
+                }, 3000);
+            }
+        }, 1000);
+
+        function startMusic() {
+            audio.play().then(() => {
+                musicBtn.classList.add('playing');
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            }).catch(err => {
+                console.log("Autoplay prevented by browser.");
+                // Blink button to indicate it's ready
+                musicBtn.style.animation = "pulse-music 1s infinite";
+                setTimeout(() => { musicBtn.style.animation = ""; }, 3000);
+            });
+        }
+
+        function hideToast() {
+            if (musicToast) {
+                musicToast.style.opacity = '0';
+                musicToast.style.transform = 'translateX(-50%) translateY(100px)';
+                musicToast.classList.remove('active');
+            }
+        }
+
+        if (cancelMusicBtn) {
+            cancelMusicBtn.addEventListener('click', () => {
+                clearTimeout(autoPlayTimer);
+                hideToast();
+                console.log("Music autoplay cancelled by user.");
+            });
+        }
+
+        musicBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicBtn.classList.add('playing');
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                }).catch(err => {
+                    console.log("Audio play failed:", err);
+                });
+            } else {
+                audio.pause();
+                musicBtn.classList.remove('playing');
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+            }
+        });
+    }
 });
-
-
-
-
-
