@@ -2521,16 +2521,23 @@ body {
 }
 
 /* Vertical Line */
+/* Vertical Line - Dashed/Dotted to represent connection */
 .timeline::after {
     content: '';
     position: absolute;
-    width: 4px;
-    background: rgba(231, 111, 81, 0.3);
+    width: 6px;
+    /* Wider for dots */
+    background-image: radial-gradient(circle, rgba(231, 111, 81, 0.6) 25%, transparent 26%);
+    background-size: 6px 15px;
+    /* Size of dot and spacing */
+    background-repeat: repeat-y;
+    background-color: transparent;
+    /* Transparent background, only dots */
     top: 0;
     bottom: 0;
     left: 20px;
     /* Mobile: Line on left */
-    border-radius: 2px;
+    border-radius: 0;
 }
 
 .timeline-item {
@@ -2540,19 +2547,39 @@ body {
     margin-bottom: 40px;
 }
 
-/* Dot */
+/* Connecting Dot (Main Node) */
 .timeline-dot {
     position: absolute;
-    left: 11px;
-    /* Center on line (20px line center - 11px + width/2) */
+    left: 10px;
+    /* Centered on the 6px wide line (20px center - 13px + width/2) */
+    /* Wait, line is at 20px left. Line width 6px. Center is 23px? No.
+       Let's say line left is 20px. Width 6px. Center is 23px.
+       Dot width 26px. 23 - 13 = 10px. */
     top: 0;
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: var(--accent);
     border: 4px solid #fff;
+    /* White ring */
     z-index: 10;
     box-shadow: 0 0 0 4px rgba(231, 111, 81, 0.2);
+    /* Pulse effect */
+    animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 111, 81, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(231, 111, 81, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 111, 81, 0);
+    }
 }
 
 .timeline-date {
