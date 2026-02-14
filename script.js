@@ -283,6 +283,40 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(`nss_camp_check_${index}`, checkbox.checked);
         });
     });
+
+    // --------------------------------------------------------
+    // Timeline Scroll Progressive Drawing
+    // --------------------------------------------------------
+    const timeline = document.querySelector('.timeline');
+
+    if (timeline) {
+        window.addEventListener('scroll', () => {
+            const rect = timeline.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Start drawing when top of timeline hits 80% viewport height
+            const startOffset = windowHeight * 0.8;
+
+            // Calculate how much of the timeline is "past" that point
+            // rect.top is distance from top of viewport to top of element
+            // As we scroll down, rect.top decreases (becomes negative)
+
+            // Progress = (Start Point - Current Top) / Total Height
+            // We want 0% when rect.top = startOffset
+            // We want 100% when rect.bottom = startOffset (or slightly before)
+
+            const totalHeight = rect.height;
+            const scrolledPast = startOffset - rect.top;
+
+            let percentage = (scrolledPast / totalHeight) * 100;
+
+            // Clamping
+            if (percentage < 0) percentage = 0;
+            if (percentage > 100) percentage = 100;
+
+            timeline.style.setProperty('--line-height', `${percentage}%`);
+        });
+    }
     // --------------------------------------------------------
     // Sidebar Navigation Logic
     // --------------------------------------------------------

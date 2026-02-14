@@ -2522,6 +2522,7 @@ body {
 
 /* Vertical Line */
 /* Vertical Line - Dashed/Dotted to represent connection */
+/* Vertical Line - Dashed/Dotted to represent connection */
 .timeline::after {
     content: '';
     position: absolute;
@@ -2534,10 +2535,16 @@ body {
     background-color: transparent;
     /* Transparent background, only dots */
     top: 0;
-    bottom: 0;
+    /* Remove bottom: 0 so height can be animated */
+    height: var(--line-height, 0%);
+    max-height: 100%;
+
     left: 20px;
     /* Mobile: Line on left */
     border-radius: 0;
+    transition: height 0.1s linear;
+    /* Smooth update */
+    z-index: 0;
 }
 
 .timeline-item {
