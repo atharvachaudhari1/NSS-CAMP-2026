@@ -424,10 +424,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 musicIcon.classList.remove('fa-play');
                 musicIcon.classList.add('fa-pause');
             }).catch(err => {
-                console.log("Autoplay prevented by browser.");
+                console.log("Autoplay prevented by browser: ", err);
                 // Blink button to indicate it's ready
                 musicBtn.style.animation = "pulse-music 1s infinite";
                 setTimeout(() => { musicBtn.style.animation = ""; }, 3000);
+
+                // Add a one-time listener to start music on ANY first click
+                const startOnInteraction = () => {
+                    audio.play().then(() => {
+                        musicBtn.classList.add('playing');
+                        musicIcon.classList.remove('fa-play');
+                        musicIcon.classList.add('fa-pause');
+                        hideToast(); // Hide toast if still visible
+                    }).catch(e => console.log("Still blocked", e));
+
+                    document.removeEventListener('click', startOnInteraction);
+                    document.removeEventListener('touchstart', startOnInteraction);
+                };
+
+                document.addEventListener('click', startOnInteraction);
+                document.addEventListener('touchstart', startOnInteraction);
             });
         }
 
